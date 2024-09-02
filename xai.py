@@ -77,7 +77,7 @@ class Assistant:
             self.config.set('assistant_id', self.id)
             return self
         
-        return self.create_assistant().id
+        return self.create_assistant()
 
     def find_existing_assistant(self):
         """Searches for an existing assistant by name."""
