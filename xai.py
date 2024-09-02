@@ -57,12 +57,6 @@ class Assistant:
 
     def create_assistant(self):
         """Creates an assistant and saves the assistant ID to the config."""
-        existing = self.find_existing_assistant()
-        if existing:
-            print('Assistant already exists with the same name. Using the existing assistant.')
-            self.id = existing.id
-            self.config.set('assistant_id', self.id)
-            return self
         xai = client.beta.assistants.create(
             instructions=self.instructions,
             name=self.name,
@@ -128,8 +122,8 @@ def setup(config):
     config.set('model', model)
 
     # Create assistant
-    print('Creating assistant with model:', model)
-    assistant = Assistant(config).create_assistant()
+    print('Getting assistant with model:', model)
+    assistant = Assistant(config).get_assistant()
     print('Setup completed successfully!')
     print('')
     print(f'Current configuration:')
@@ -140,7 +134,7 @@ def setup(config):
     print(f'Assistant Model: {config.get("model")}')
     print('-------------------------------')
     print('')
-    print('To get started, run any command with XAI.')
+    print('To get started, make any request to XAI.')
     print('Example: xai make post request')
     sys.exit(0)
 
